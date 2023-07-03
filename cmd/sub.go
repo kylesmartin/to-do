@@ -1,7 +1,6 @@
 package cmd
 
 import (
-	"fmt"
 	"os"
 	"path"
 
@@ -14,6 +13,7 @@ func NewSubCmd(
 	use string,
 	short string,
 	load func(string) (*work.List, error),
+	validations []func(*work.List) error,
 	process func(*work.List) error,
 	save func(string, *work.List) error,
 ) *cobra.Command {
@@ -24,26 +24,34 @@ func NewSubCmd(
 			// get home directory
 			dir, err := os.UserHomeDir()
 			if err != nil {
-				logs.Fatal().Err(fmt.Errorf("error getting home directory: %w", err))
+				logs.Fatal().Err(err).Msg("error getting home directory")
 			}
 			fileNameAndPath := path.Join(dir, FILE_NAME)
 
 			// load list from file in home directory
 			list, err := load(fileNameAndPath)
 			if err != nil {
-				logs.Fatal().Err(fmt.Errorf("error loading to-do list: %w", err))
+				logs.Fatal().Err(err).Msg("error loading to-do list")
+			}
+
+			// run validations
+			for _, validation := range validations {
+				err := validation(list)
+				if err != nil {
+					logs.Fatal().Err(err).Msg("validation failed")
+				}
 			}
 
 			// perform some operation on the list
 			err = process(list)
 			if err != nil {
-				logs.Fatal().Err(fmt.Errorf("error processing to-do list: %w", err))
+				logs.Fatal().Err(err).Msg("error processing to-do list")
 			}
 
 			// save the list after processing
 			err = save(fileNameAndPath, list)
 			if err != nil {
-				logs.Fatal().Err(fmt.Errorf("error saving to-do list: %w", err))
+				logs.Fatal().Err(err).Msg("error saving to-do list")
 			}
 		},
 	}

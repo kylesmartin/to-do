@@ -14,6 +14,7 @@ func CompleteCmd() *cobra.Command {
 		"complete",
 		"Removes a task from the to-do list",
 		work.LoadList,
+		[]func(l *work.List) error{IsNonEmpty},
 		func(list *work.List) error {
 			// get all descriptions
 			var descriptions []string
@@ -32,8 +33,7 @@ func CompleteCmd() *cobra.Command {
 			}
 
 			// remove task from list of tasks
-			list.Remove(ind)
-			return nil
+			return list.Remove(ind)
 		},
 		work.SaveList,
 	)

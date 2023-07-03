@@ -14,6 +14,7 @@ func AddCmd() *cobra.Command {
 		"add",
 		"Adds a task to the to-do list",
 		work.LoadList,
+		[]func(l *work.List) error{},
 		func(list *work.List) error {
 			// prompt user for new task
 			// no validation needed because any string is valid
