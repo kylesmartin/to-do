@@ -1,2 +1,3 @@
 # to-do
-Manage to-do lists using a simple command line tool
+
+Manage a to-do list using a simple command line tool
