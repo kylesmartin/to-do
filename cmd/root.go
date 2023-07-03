@@ -25,7 +25,7 @@ func configureRootCmd() *cobra.Command {
 	logs = configureLogger()
 
 	// create root command
-	var rootCmd = &cobra.Command{
+	var rootCmd = cobra.Command{
 		Use:   "to-do",
 		Short: "To-do manages a simple list of tasks",
 		Long:  `A tool that enables users to manage a simple to-do list in a command line workflow`,
@@ -38,7 +38,7 @@ func configureRootCmd() *cobra.Command {
 		CompleteCmd(),
 	)
 
-	return rootCmd
+	return &rootCmd
 }
 
 func configureLogger() *zerolog.Logger {

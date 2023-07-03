@@ -17,7 +17,7 @@ func NewSubCmd(
 	process func(*work.List) error,
 	save func(string, *work.List) error,
 ) *cobra.Command {
-	return &cobra.Command{
+	c := cobra.Command{
 		Use:   use,
 		Short: short,
 		Run: func(cmd *cobra.Command, args []string) {
@@ -55,4 +55,6 @@ func NewSubCmd(
 			}
 		},
 	}
+
+	return &c
 }

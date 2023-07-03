@@ -1,0 +1,23 @@
+name: Lint Golang code
+
+on:
+  push:
+    paths:
+      - "**.go"
+      - ".github/workflows/lint.yml"
+
+jobs:
+  lint:
+    name: Lint Golang code
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout sources
+        uses: actions/checkout@v3
+
+      - name: Setup go 1.20
+        uses: actions/setup-go@v4
+        with:
+          go-version: 1.20
+
+      - name: Lint using golangci-lint
+        uses: golangci/golangci-lint-action@v3
