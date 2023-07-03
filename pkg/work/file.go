@@ -21,7 +21,7 @@ func LoadList(fileName string) (*List, error) {
 		return nil, fmt.Errorf("error reading file info: %w", err)
 	}
 
-	// read the file
+	// read the fil
 	fileBytes, err := os.ReadFile(fileName)
 	if err != nil {
 		return nil, fmt.Errorf("error reading file: %w", err)

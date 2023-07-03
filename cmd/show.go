@@ -14,7 +14,7 @@ var prettyList = template.Must(template.New("prettyList").Parse(SHOW_TEMPLATE))
 // ShowCmd prints the to-do list
 func ShowCmd() *cobra.Command {
 	return NewSubCmd(
-		"show",
+		"sho",
 		"Prints the current to-do list",
 		work.LoadList,
 		[]func(l *work.List) error{IsNonEmpty},
