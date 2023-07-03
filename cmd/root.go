@@ -8,27 +8,21 @@ import (
 	"github.com/spf13/cobra"
 )
 
-var (
-	logs          *zerolog.Logger
-	consoleWriter = zerolog.ConsoleWriter{
-		Out:        os.Stdout,
-		TimeFormat: time.RFC3339,
-	}
-)
+// the logger is used throughout cmd
+var logs *zerolog.Logger
 
 // Execute configures and runs the root command
 func Execute() {
 	rootCmd := configureRootCmd()
 	if err := rootCmd.Execute(); err != nil {
-		// TODO: extract proper error code based on execution
+		// we use code 1 to indicate that an error has forced exit
 		os.Exit(1)
 	}
 }
 
 func configureRootCmd() *cobra.Command {
-	// initialize logger (TODO: extract logger to its own package)
-	l := zerolog.New(consoleWriter).Level(zerolog.InfoLevel).With().Timestamp().Caller().Logger()
-	logs = &l
+	// configure logger
+	logs = configureLogger()
 
 	// create root command
 	var rootCmd = &cobra.Command{
@@ -45,4 +39,14 @@ func configureRootCmd() *cobra.Command {
 	)
 
 	return rootCmd
+}
+
+func configureLogger() *zerolog.Logger {
+	// we use a human readable logger that outputs to console
+	l := zerolog.New(zerolog.ConsoleWriter{
+		Out:        os.Stdout,
+		TimeFormat: time.RFC3339,
+	}).Level(zerolog.InfoLevel).With().Timestamp().Caller().Logger()
+
+	return &l
 }

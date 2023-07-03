@@ -28,8 +28,7 @@ func CompleteCmd() *cobra.Command {
 			}
 			ind, _, err := prompt.Run()
 			if err != nil {
-				// TODO: use error types
-				return fmt.Errorf("error running prompt: %w", err)
+				return fmt.Errorf("error running selection: %w", err)
 			}
 
 			// remove task from list of tasks

@@ -24,7 +24,6 @@ func NewSubCmd(
 			// get home directory
 			dir, err := os.UserHomeDir()
 			if err != nil {
-				// TODO: use error types
 				logs.Fatal().Err(fmt.Errorf("error getting home directory: %w", err))
 			}
 			fileNameAndPath := path.Join(dir, FILE_NAME)
@@ -32,21 +31,18 @@ func NewSubCmd(
 			// load list from file in home directory
 			list, err := load(fileNameAndPath)
 			if err != nil {
-				// TODO: use error types
 				logs.Fatal().Err(fmt.Errorf("error loading to-do list: %w", err))
 			}
 
 			// perform some operation on the list
 			err = process(list)
 			if err != nil {
-				// TODO: use error types
 				logs.Fatal().Err(fmt.Errorf("error processing to-do list: %w", err))
 			}
 
 			// save the list after processing
 			err = save(fileNameAndPath, list)
 			if err != nil {
-				// TODO: use error types
 				logs.Fatal().Err(fmt.Errorf("error saving to-do list: %w", err))
 			}
 		},

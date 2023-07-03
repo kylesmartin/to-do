@@ -19,7 +19,6 @@ func ShowCmd() *cobra.Command {
 		work.LoadList,
 		func(list *work.List) error {
 			if err := prettyList.Execute(os.Stdout, list); err != nil {
-				// TODO: use error types
 				return fmt.Errorf("error displaying to-do list: %w", err)
 			}
 

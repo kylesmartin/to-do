@@ -18,21 +18,18 @@ func LoadList(fileName string) (*List, error) {
 	if os.IsNotExist(err) {
 		return &list, nil
 	} else if err != nil {
-		// TODO: use error types
 		return nil, fmt.Errorf("error reading file info: %w", err)
 	}
 
 	// read the file
 	fileBytes, err := os.ReadFile(fileName)
 	if err != nil {
-		// TODO: use error types
 		return nil, fmt.Errorf("error reading file: %w", err)
 	}
 
 	// unmarsal file bytes into a list
 	err = json.Unmarshal(fileBytes, &list)
 	if err != nil {
-		// TODO: use error types
 		return nil, fmt.Errorf("error unmarshaling file bytes into list: %w", err)
 	}
 
@@ -44,14 +41,12 @@ func SaveList(fileName string, list *List) error {
 	// convert object to JSON bytes
 	fileBytes, err := json.MarshalIndent(list, "", "  ")
 	if err != nil {
-		// TODO: use error types
 		return fmt.Errorf("error marshaling list into file bytes: %w", err)
 	}
 
 	// write JSON bytes to file
 	err = os.WriteFile(fileName, fileBytes, 0644)
 	if err != nil {
-		// TODO: use error types
 		return fmt.Errorf("error writing to file: %w", err)
 	}
 

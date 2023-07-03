@@ -22,7 +22,6 @@ func AddCmd() *cobra.Command {
 			}
 			task, err := prompt.Run()
 			if err != nil {
-				// TODO: use error types
 				return fmt.Errorf("error running prompt: %w", err)
 			}
 
