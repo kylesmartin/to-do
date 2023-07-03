@@ -31,7 +31,7 @@ Use "to-do [command] --help" for more information about a command.
 
 ## Commands
 
-dd a task to your list
+Add a task to your to-do list
 ```
 to-do add
 ```
