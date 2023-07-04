@@ -14,7 +14,7 @@ func CompleteCmd() *cobra.Command {
 		"complete",
 		"Removes a task from the to-do list",
 		work.LoadList,
-		[]func(l *work.List) error{IsNonEmpty},
+		[]Validation{IsNonEmpty},
 		func(list *work.List) error {
 			// get all descriptions
 			var descriptions []string

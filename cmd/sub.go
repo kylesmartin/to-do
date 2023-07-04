@@ -13,7 +13,7 @@ func NewSubCmd(
 	use string,
 	short string,
 	load func(string) (*work.List, error),
-	validations []func(*work.List) error,
+	validations []Validation,
 	process func(*work.List) error,
 	save func(string, *work.List) error,
 ) *cobra.Command {
