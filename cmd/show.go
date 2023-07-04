@@ -17,7 +17,7 @@ func ShowCmd() *cobra.Command {
 		"show",
 		"Prints the current to-do list",
 		work.LoadList,
-		[]func(l *work.List) error{IsNonEmpty},
+		[]Validation{IsNonEmpty},
 		func(list *work.List) error {
 			if err := prettyList.Execute(os.Stdout, list); err != nil {
 				return fmt.Errorf("error displaying to-do list: %w", err)
