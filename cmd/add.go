@@ -17,9 +17,15 @@ func AddCmd() *cobra.Command {
 		[]Validation{},
 		func(list *work.List) error {
 			// prompt user for new task
-			// no validation needed because any string is valid
 			prompt := promptui.Prompt{
 				Label: "What do you need to do?",
+				// inputted string must not be empty
+				Validate: func(s string) error {
+					if s == "" {
+						return fmt.Errorf("input must not be empty")
+					}
+					return nil
+				},
 			}
 			task, err := prompt.Run()
 			if err != nil {
@@ -30,6 +36,7 @@ func AddCmd() *cobra.Command {
 			list.Add(work.Task{
 				Description: task,
 			})
+			logs.Info().Str("Task", task).Msg("Task added to to-do list")
 			return nil
 		},
 		work.SaveList,

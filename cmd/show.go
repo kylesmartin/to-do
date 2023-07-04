@@ -22,7 +22,6 @@ func ShowCmd() *cobra.Command {
 			if err := prettyList.Execute(os.Stdout, list); err != nil {
 				return fmt.Errorf("error displaying to-do list: %w", err)
 			}
-
 			return nil
 		},
 		work.SaveList,

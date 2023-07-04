@@ -27,13 +27,17 @@ func CompleteCmd() *cobra.Command {
 				Label: "What have you completed?",
 				Items: descriptions,
 			}
-			ind, _, err := prompt.Run()
+			ind, task, err := prompt.Run()
 			if err != nil {
 				return fmt.Errorf("error running selection: %w", err)
 			}
 
 			// remove task from list of tasks
-			return list.Remove(ind)
+			err = list.Remove(ind)
+			if err == nil {
+				logs.Info().Str("Task", task).Msg("Task removed from to-do list")
+			}
+			return err
 		},
 		work.SaveList,
 	)
